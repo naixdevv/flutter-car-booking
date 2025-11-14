@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:flutter_car_booking/routes/app_routes.dart';
 import 'package:flutter_car_booking/core/theme/app_colors.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_button.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_text_button.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_textfield.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
+
+  @override
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
+}
+
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  void _sendCode() {
+    Navigator.pushNamed(context, AppRoutes.enterVerificationCode);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +78,7 @@ class ForgotPasswordPage extends StatelessWidget {
               SizedBox(height: 24),
               AppButton(
                 text: 'Send Code',
-                onPressed: () {},
+                onPressed: _sendCode,
                 type: ButtonType.primary,
               ),
               SizedBox(height: 16),
