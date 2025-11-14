@@ -10,6 +10,7 @@ class AppRoutes {
   static const register = '/register';
   static const forgotPassword = '/forgot-password';
   static const enterVerificationCode = '/enter-verification-code';
+  static const resetPasswordSuccess = '/reset-password-success';
 
   // Not Found
   static const notFound = '/not-found';

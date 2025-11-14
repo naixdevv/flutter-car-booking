@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:flutter_car_booking/routes/app_routes.dart';
 import 'package:flutter_car_booking/core/theme/app_colors.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_button.dart';
 import 'package:flutter_car_booking/presentation/widgets/otp_input.dart';
@@ -16,7 +17,7 @@ class _EnterVerificationCodePageState extends State<EnterVerificationCodePage> {
   final controllers = List.generate(5, (_) => TextEditingController());
 
   void _verify(String otp) {
-    Navigator.pop(context);
+    Navigator.pushNamedAndRemoveUntil(context, AppRoutes.resetPasswordSuccess, (_) => false);
   }
 
   @override
