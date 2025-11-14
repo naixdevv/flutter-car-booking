@@ -7,6 +7,7 @@ import '../presentation/pages/profile/profile_page.dart';
 import '../presentation/pages/auth/login_page.dart';
 import '../presentation/pages/auth/register_page.dart';
 import '../presentation/pages/auth/forgot_password_page.dart';
+import '../presentation/pages/auth/enter_verification_code_page.dart';
 import '../presentation/pages/not_found/not_found_page.dart';
 
 class AppRouter {
@@ -29,6 +30,8 @@ class AppRouter {
         return _page(const RegisterPage());
       case AppRoutes.forgotPassword:
         return _page(const ForgotPasswordPage());
+      case AppRoutes.enterVerificationCode:
+        return _page(const EnterVerificationCodePage());
 
       default:
         return _page(NotFoundPage());
