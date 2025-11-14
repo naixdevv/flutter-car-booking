@@ -85,7 +85,12 @@ class LoginPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  AppTextButton(text: 'Forgot Password?', onPressed: () {}),
+                  AppTextButton(
+                    text: 'Forgot Password?',
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.forgotPassword);
+                    },
+                  ),
                 ],
               ),
               SizedBox(height: 16),

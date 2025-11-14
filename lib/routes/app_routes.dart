@@ -8,6 +8,7 @@ class AppRoutes {
   // Auth
   static const login = '/login';
   static const register = '/register';
+  static const forgotPassword = '/forgot-password';
 
   // Not Found
   static const notFound = '/not-found';
