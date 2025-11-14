@@ -16,9 +16,13 @@ class AppColors {
   static const iconPrimary = Color(0xFF9E9E9E);
 
   // Input
-  static const inputPrimary = Color(0xFF1A1C22);
+  static const inputPrimary = Color(0xFF282C35);
   static const inputText = Color(0xFFFFFFFF);
-  static const inputPlaceholder = Color(0xFF9E9E9E);
+  static const inputHint = Color(0xFF9E9E9E);
+
+  // Button
+  static const buttonPrimary = Color(0xFFFFBC07);
+  static const buttonSecondary = Color(0xFF282C35);
 
   // Border
   static const borderPrimary = Color(0xFF1A1C22);
