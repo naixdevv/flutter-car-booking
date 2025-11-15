@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_car_booking/core/theme/app_colors.dart';
+import 'package:flutter_car_booking/presentation/widgets/profile_default.dart';
 import './widgets/profile_tile.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -25,19 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Center(
                 child: Column(
                   children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: AppColors.backgroundSecondary,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Icon(
-                        LucideIcons.user,
-                        color: Colors.white,
-                        size: 50,
-                      ),
-                    ),
+                    ProfileDefault(),
                     SizedBox(height: 8),
                     Text(
                       'Supanai Hilmee',
