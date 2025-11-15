@@ -3,9 +3,8 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_car_booking/core/theme/app_colors.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_textfield.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_text_button.dart';
-import 'package:flutter_car_booking/presentation/widgets/profile_default.dart';
+import 'package:flutter_car_booking/presentation/widgets/car_card.dart';
 import './widgets/brand_card.dart';
-import './widgets/car_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,6 +35,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Hi, Supanai',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: false,
+        titleSpacing: 24,
+        backgroundColor: AppColors.backgroundPrimary,
+        actionsPadding: EdgeInsets.only(right: 16),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(LucideIcons.bell, color: Colors.white, size: 30),
+          ),
+        ],
+      ),
       backgroundColor: AppColors.backgroundPrimary,
       body: SafeArea(
         top: false,
@@ -44,51 +59,6 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: AppColors.backgroundSecondary,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Icon(
-                          LucideIcons.mapPin,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Your location',
-                            style: TextStyle(
-                              color: AppColors.textSecondary,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            'Bangkok',
-                            style: TextStyle(
-                              color: AppColors.textPrimary,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: 16),
-                  ProfileDefault(size: ProfileDefaultSize.small),
-                ],
-              ),
               SizedBox(height: 24),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
