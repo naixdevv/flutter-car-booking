@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'app_routes.dart';
 import '../presentation/pages/home/home_page.dart';
+import '../presentation/pages/booking/booking_page.dart';
 import '../presentation/pages/trips/trip_page.dart';
-import '../presentation/pages/messages/message_page.dart';
 import '../presentation/pages/profile/profile_page.dart';
 import '../presentation/pages/auth/login_page.dart';
 import '../presentation/pages/auth/register_page.dart';
@@ -20,7 +20,7 @@ class AppRouter {
       case AppRoutes.trips:
         return _page(const TripPage());
       case AppRoutes.messages:
-        return _page(const MessagePage());
+        return _page(const BookingPage());
       case AppRoutes.profile:
         return _page(const ProfilePage());
 

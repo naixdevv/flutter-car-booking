@@ -4,8 +4,8 @@ import './core/theme/app_colors.dart';
 import './routes/app_router.dart';
 import './routes/app_routes.dart';
 import './presentation/pages/home/home_page.dart';
+import './presentation/pages/booking/booking_page.dart';
 import './presentation/pages/trips/trip_page.dart';
-import './presentation/pages/messages/message_page.dart';
 import './presentation/pages/profile/profile_page.dart';
 
 void main() {
@@ -38,8 +38,8 @@ class _MainLayoutState extends State<MainLayout> {
 
   final List<Widget> _pages = [
     HomePage(),
+    BookingPage(),
     TripPage(),
-    MessagePage(),
     ProfilePage()
   ];
 
@@ -65,8 +65,8 @@ class _MainLayoutState extends State<MainLayout> {
         backgroundColor: AppColors.backgroundPrimary,
         items: const [
           BottomNavigationBarItem(icon: Icon(LucideIcons.house), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(LucideIcons.search), label: "Booking"),
           BottomNavigationBarItem(icon: Icon(LucideIcons.scrollText), label: "Trips"),
-          BottomNavigationBarItem(icon: Icon(LucideIcons.messageCircle), label: "Messages"),
           BottomNavigationBarItem(icon: Icon(LucideIcons.user), label: "Profile"),
         ],
       ),
