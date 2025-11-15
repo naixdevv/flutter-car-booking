@@ -167,10 +167,11 @@ class _TripPageState extends State<TripPage> {
                     child: ListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 24),
                       leading: Container(
-                        padding: EdgeInsets.all(8),
+                        width: 50,
+                        height: 50,
                         decoration: BoxDecoration(
                           color: AppColors.backgroundSecondary,
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(50),
                         ),
                         child: Icon(
                           LucideIcons.carFront,
