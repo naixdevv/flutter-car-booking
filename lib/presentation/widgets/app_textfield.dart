@@ -8,6 +8,7 @@ class AppTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final Color? fillColor;
   final String? Function(String?)? validator;
 
   const AppTextField({
@@ -18,6 +19,7 @@ class AppTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.prefixIcon,
     this.suffixIcon,
+    this.fillColor = AppColors.inputPrimary,
     this.validator,
   });
 
@@ -36,7 +38,7 @@ class AppTextField extends StatelessWidget {
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           filled: true,
-          fillColor: AppColors.inputPrimary,
+          fillColor: fillColor,
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
