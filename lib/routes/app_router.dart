@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'app_routes.dart';
 import '../presentation/pages/home/home_page.dart';
 import '../presentation/pages/booking/booking_page.dart';
+import '../presentation/pages/booking/booking_search_result_page.dart';
+import '../presentation/pages/booking/booking_confirm_page.dart';
+import '../presentation/pages/booking/booking_success_page.dart';
 import '../presentation/pages/trips/trip_page.dart';
 import '../presentation/pages/profile/profile_page.dart';
 import '../presentation/pages/auth/login_page.dart';
@@ -19,7 +22,7 @@ class AppRouter {
         return _page(const HomePage());
       case AppRoutes.trips:
         return _page(const TripPage());
-      case AppRoutes.messages:
+      case AppRoutes.booking:
         return _page(const BookingPage());
       case AppRoutes.profile:
         return _page(const ProfilePage());
@@ -35,6 +38,14 @@ class AppRouter {
         return _page(const EnterVerificationCodePage());
       case AppRoutes.resetPasswordSuccess:
         return _page(const ResetPasswordSuccessPage());
+
+      // Booking
+      case AppRoutes.bookingSearchResult:
+        return _page(const BookingSearchResultPage());
+      case AppRoutes.bookingConfirm:
+        return _page(const BookingConfirmPage());
+      case AppRoutes.bookingSuccess:
+        return _page(const BookingSuccessPage());
 
       default:
         return _page(NotFoundPage());

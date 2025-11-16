@@ -2,7 +2,7 @@ class AppRoutes {
   // Bottom Bar
   static const home = '/';
   static const trips = '/trips';
-  static const messages = '/messages';
+  static const booking = '/booking';
   static const profile = '/profile';
 
   // Auth
@@ -14,4 +14,9 @@ class AppRoutes {
 
   // Not Found
   static const notFound = '/not-found';
+
+  // Booking
+  static const bookingSearchResult = '/booking-search-result';
+  static const bookingConfirm = '/booking-confirm';
+  static const bookingSuccess = '/booking-success';
 }
