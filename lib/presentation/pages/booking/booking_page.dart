@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:flutter_car_booking/routes/app_routes.dart';
 import 'package:flutter_car_booking/core/theme/app_colors.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_button.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_text_button.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_textfield.dart';
 import 'package:flutter_car_booking/presentation/widgets/car_card.dart';
+import 'package:flutter_car_booking/presentation/widgets/date_time_picker.dart';
 
 class BookingPage extends StatefulWidget {
   const BookingPage({super.key});
@@ -25,6 +27,10 @@ class _BookingPageState extends State<BookingPage> {
     {"id": 4, "name": "Yaris Cross", "price": 2000.00},
     {"id": 5, "name": "Corolla Cross", "price": 3000.00},
   ];
+
+  void _searchCar() {
+    Navigator.of(context, rootNavigator: true).pushNamed(AppRoutes.bookingSearchResult);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +83,7 @@ class _BookingPageState extends State<BookingPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
-                    Divider(color: AppColors.borderPrimary, thickness: 1),
-                    SizedBox(height: 8),
+                    SizedBox(height: 16),
                     AppTextField(
                       controller: startController,
                       hintText: 'Suvarnabhumi Airport (BKK)',
@@ -90,31 +94,22 @@ class _BookingPageState extends State<BookingPage> {
                       fillColor: AppColors.backgroundPrimary,
                     ),
                     SizedBox(height: 16),
-                    AppTextField(
-                      controller: dateController,
-                      hintText: '18 Nov 10:00 PM - 21 Nov 10:00 PM',
-                      prefixIcon: Icon(
-                        LucideIcons.calendar,
-                        color: AppColors.iconPrimary,
-                      ),
-                      fillColor: AppColors.backgroundPrimary,
-                    ),
+                    DateTimePicker(onSelected: (datetime) {}),
                     SizedBox(height: 16),
                     AppTextField(
                       controller: ageController,
                       hintText: 'Age between 25-60',
+                      keyboardType: TextInputType.number,
                       prefixIcon: Icon(
                         LucideIcons.user,
                         color: AppColors.iconPrimary,
                       ),
                       fillColor: AppColors.backgroundPrimary,
                     ),
-                    SizedBox(height: 8),
-                    Divider(color: AppColors.borderPrimary, thickness: 1),
-                    SizedBox(height: 8),
+                    SizedBox(height: 24),
                     AppButton(
                       text: 'Search',
-                      onPressed: () {},
+                      onPressed: _searchCar,
                       type: ButtonType.primary,
                     ),
                   ],
