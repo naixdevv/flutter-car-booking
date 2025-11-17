@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import './core/theme/app_colors.dart';
-import './routes/app_router.dart';
-import './routes/app_routes.dart';
-import './presentation/pages/home/home_page.dart';
-import './presentation/pages/booking/booking_page.dart';
-import './presentation/pages/trips/trip_page.dart';
-import './presentation/pages/profile/profile_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_car_booking/l10n/app_localizations.dart';
+import 'package:flutter_car_booking/core/theme/app_colors.dart';
+import 'package:flutter_car_booking/bloc/locale/locale_bloc.dart';
+import 'package:flutter_car_booking/bloc/locale/locale_state.dart';
+import 'package:flutter_car_booking/routes/app_router.dart';
+import 'package:flutter_car_booking/routes/app_routes.dart';
+import 'package:flutter_car_booking/presentation/pages/home/home_page.dart';
+import 'package:flutter_car_booking/presentation/pages/booking/booking_page.dart';
+import 'package:flutter_car_booking/presentation/pages/trips/trip_page.dart';
+import 'package:flutter_car_booking/presentation/pages/profile/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,11 +22,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.home,
-      onGenerateRoute: AppRouter.generateRoute,
-      home: MainLayout()
+    return MultiBlocProvider(
+      providers: [BlocProvider<LocaleBloc>(create: (_) => LocaleBloc())],
+      child: BlocBuilder<LocaleBloc, LocaleState>(
+        builder: (context, localeState) {
+          return MaterialApp(
+            locale: localeState.locale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('en'), Locale('th')],
+            debugShowCheckedModeBanner: false,
+            initialRoute: AppRoutes.home,
+            onGenerateRoute: AppRouter.generateRoute,
+            home: MainLayout(),
+          );
+        },
+      ),
     );
   }
 }
@@ -40,18 +60,18 @@ class _MainLayoutState extends State<MainLayout> {
     HomePage(),
     BookingPage(),
     TripPage(),
-    ProfilePage()
+    ProfilePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Navigator(
         key: GlobalKey<NavigatorState>(),
         onGenerateRoute: (settings) {
-          return MaterialPageRoute(
-            builder: (_) => _pages[_selectedIndex],
-          );
+          return MaterialPageRoute(builder: (_) => _pages[_selectedIndex]);
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -63,11 +83,23 @@ class _MainLayoutState extends State<MainLayout> {
         selectedItemColor: AppColors.primary,
         unselectedItemColor: Colors.white,
         backgroundColor: AppColors.backgroundPrimary,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(LucideIcons.house), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(LucideIcons.search), label: "Booking"),
-          BottomNavigationBarItem(icon: Icon(LucideIcons.scrollText), label: "Trips"),
-          BottomNavigationBarItem(icon: Icon(LucideIcons.user), label: "Profile"),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(LucideIcons.house),
+            label: i18n.bottomBar_home,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(LucideIcons.search),
+            label: i18n.bottomBar_booking,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(LucideIcons.scrollText),
+            label: i18n.bottomBar_trips,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(LucideIcons.user),
+            label: i18n.bottomBar_profile,
+          ),
         ],
       ),
     );

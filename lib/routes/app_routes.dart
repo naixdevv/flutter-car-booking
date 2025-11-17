@@ -19,4 +19,7 @@ class AppRoutes {
   static const bookingSearchResult = '/booking-search-result';
   static const bookingConfirm = '/booking-confirm';
   static const bookingSuccess = '/booking-success';
+
+  // Profile
+  static const languagePage = '/language-page';
 }

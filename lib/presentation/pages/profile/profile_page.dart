@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:flutter_car_booking/routes/app_routes.dart';
 import 'package:flutter_car_booking/core/theme/app_colors.dart';
 import 'package:flutter_car_booking/presentation/widgets/profile_default.dart';
 import './widgets/profile_tile.dart';
@@ -62,7 +63,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ProfileTile(
               icon: LucideIcons.languages,
               text: "Language",
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).pushNamed(AppRoutes.languagePage);
+              },
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),

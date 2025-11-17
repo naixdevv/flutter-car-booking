@@ -7,6 +7,7 @@ import '../presentation/pages/booking/booking_confirm_page.dart';
 import '../presentation/pages/booking/booking_success_page.dart';
 import '../presentation/pages/trips/trip_page.dart';
 import '../presentation/pages/profile/profile_page.dart';
+import '../presentation/pages/profile/language_page.dart';
 import '../presentation/pages/auth/login_page.dart';
 import '../presentation/pages/auth/register_page.dart';
 import '../presentation/pages/auth/forgot_password_page.dart';
@@ -46,6 +47,10 @@ class AppRouter {
         return _page(const BookingConfirmPage());
       case AppRoutes.bookingSuccess:
         return _page(const BookingSuccessPage());
+
+      // Profile
+      case AppRoutes.languagePage:
+        return _page(const LanguagePage());
 
       default:
         return _page(NotFoundPage());
