@@ -43,3 +43,19 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Flutter/Dart related
+.dart_tool/
+.packages
+/build/
+
+# Platform-specific build files
+/android/build/
+/ios/Flutter/
+/macos/Flutter/
+/windows/flutter/
+/linux/flutter/
+/web/
+
+# Generated Xcode/CocoaPods files
+*.lock
