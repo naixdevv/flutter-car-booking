@@ -6,6 +6,8 @@ import 'package:flutter_car_booking/l10n/app_localizations.dart';
 import 'package:flutter_car_booking/core/theme/app_colors.dart';
 import 'package:flutter_car_booking/bloc/locale/locale_bloc.dart';
 import 'package:flutter_car_booking/bloc/locale/locale_state.dart';
+import 'package:flutter_car_booking/presentation/pages/auth/bloc/auth_bloc.dart';
+import 'package:flutter_car_booking/data/datasources/remote/auth_api.dart';
 import 'package:flutter_car_booking/routes/app_router.dart';
 import 'package:flutter_car_booking/routes/app_routes.dart';
 import 'package:flutter_car_booking/presentation/pages/home/home_page.dart';
@@ -23,7 +25,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider<LocaleBloc>(create: (_) => LocaleBloc())],
+      providers: [
+        BlocProvider<LocaleBloc>(create: (_) => LocaleBloc()),
+        BlocProvider<AuthBloc>(create: (_) => AuthBloc(AuthApi())),
+      ],
       child: BlocBuilder<LocaleBloc, LocaleState>(
         builder: (context, localeState) {
           return MaterialApp(
@@ -36,7 +41,7 @@ class MyApp extends StatelessWidget {
             ],
             supportedLocales: const [Locale('en'), Locale('th')],
             debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.home,
+            initialRoute: AppRoutes.login,
             onGenerateRoute: AppRouter.generateRoute,
             home: MainLayout(),
           );
