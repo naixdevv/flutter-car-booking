@@ -186,7 +186,7 @@ class _TripPageState extends State<TripPage> {
                         ),
                       ),
                       subtitle: Text(
-                        '${trip['time']}, ${AppCurrencyUtils.format(trip['price'])}',
+                        '${trip['time']}, ${AppCurrencyUtils.format(trip['price'], 'th')}',
                         style: TextStyle(
                           color: AppColors.textSecondary,
                           fontSize: 16,

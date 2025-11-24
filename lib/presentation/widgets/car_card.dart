@@ -53,7 +53,7 @@ class CarCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        AppCurrencyUtils.format(price),
+                        AppCurrencyUtils.format(price, 'th'),
                         style: TextStyle(
                           color: AppColors.primary,
                           fontSize: 16,

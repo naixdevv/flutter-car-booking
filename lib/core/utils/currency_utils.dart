@@ -1,7 +1,17 @@
 import 'package:intl/intl.dart';
 
 class AppCurrencyUtils {
-  static String format(double value) {
-    return NumberFormat.currency(locale: 'th_TH', symbol: '฿').format(value);
+  static String format(double value, String locale) {
+    Intl.defaultLocale = locale;
+
+    String currencyCode = locale == "th" ? "THB" : "USD";
+
+    final formatter = NumberFormat.currency(
+      locale: locale,
+      symbol: currencyCode == "THB" ? "฿" : "\$",
+      decimalDigits: 2,
+    );
+
+    return formatter.format(value);
   }
 }
