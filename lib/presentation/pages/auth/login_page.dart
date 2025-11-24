@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_car_booking/routes/app_routes.dart';
 import 'package:flutter_car_booking/core/theme/app_colors.dart';
+import 'package:flutter_car_booking/core/utils/formatters.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_button.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_text_button.dart';
 import 'package:flutter_car_booking/presentation/widgets/app_textfield.dart';
+import 'package:flutter_car_booking/presentation/pages/auth/bloc/auth_bloc.dart';
+import 'package:flutter_car_booking/presentation/pages/auth/bloc/auth_event.dart';
+import 'package:flutter_car_booking/presentation/pages/auth/bloc/auth_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,165 +19,196 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController(text: 'supanai@example.com');
+  final passwordController = TextEditingController(text: '123456');
+
+  @override
+  void dispose() {
+    emailController.clear();
+    passwordController.clear();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundPrimary,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(24),
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: [
-              SizedBox(height: 24),
-              Image.asset(
-                'assets/images/logo.png',
-                width: 150,
-                height: 150,
-                fit: BoxFit.contain,
-              ),
-              Center(
-                child: Column(
+        child: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state.isSuccess) {
+              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (_) => false);
+            }
+            if (state.error != null) {
+              // Alert Error
+            }
+          },
+          builder: (context, state) {
+            return Padding(
+              padding: EdgeInsets.all(24),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  physics: BouncingScrollPhysics(),
                   children: [
-                    Text(
-                      'Welcome Back',
-                      style: TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(height: 24),
+                    Image.asset(
+                      'assets/images/logo.png',
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.contain,
+                    ),
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Welcome Back',
+                            style: TextStyle(
+                              color: AppColors.textPrimary,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Login to your account using email or social networks',
+                            style: TextStyle(color: AppColors.textSecondary),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
+                    SizedBox(height: 24),
+                    AppTextField(
+                      controller: emailController,
+                      hintText: 'Email',
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: Icon(
+                        LucideIcons.mail,
+                        color: AppColors.iconPrimary,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email cannot be empty';
+                        }
+                        if (!AppFormatters.isValidEmail(value)) {
+                          return 'Invalid email format';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 16),
+                    AppTextField(
+                      controller: passwordController,
+                      hintText: 'Password',
+                      obscureText: true,
+                      prefixIcon: Icon(
+                        LucideIcons.lockKeyhole,
+                        color: AppColors.iconPrimary,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password cannot be empty';
+                        }
+                        return null;
+                      },
+                    ),
                     SizedBox(height: 8),
-                    Text(
-                      'Login to your account using email or social networks',
-                      style: TextStyle(color: AppColors.textSecondary),
-                      textAlign: TextAlign.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AppTextButton(
+                          text: 'Forgot Password?',
+                          onPressed: () {
+                            Navigator.pushNamed(context, AppRoutes.forgotPassword);
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    AppButton(
+                      text: 'Log In',
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<AuthBloc>().add(LoginEvent(emailController.text, passwordController.text));
+                        }
+                      },
+                      type: ButtonType.primary,
+                      isLoading: state.isLoading,
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'First time here?',
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        AppTextButton(
+                          text: 'Sign up',
+                          onPressed: () {
+                            Navigator.pushNamed(context, AppRoutes.register);
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 24),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            color: AppColors.borderSecondary,
+                            thickness: 1,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            'Or sign in with',
+                            style: TextStyle(
+                              color: AppColors.textPrimary,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            color: AppColors.borderSecondary,
+                            thickness: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AppButton(
+                            text: 'Google',
+                            onPressed: () {},
+                            type: ButtonType.google,
+                          ),
+                        ),
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: AppButton(
+                            text: 'Facebook',
+                            onPressed: () {},
+                            type: ButtonType.facebook,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 24),
-              AppTextField(
-                controller: emailController,
-                hintText: 'Email',
-                keyboardType: TextInputType.emailAddress,
-                prefixIcon: Icon(
-                  LucideIcons.mail,
-                  color: AppColors.iconPrimary,
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Email cannot be empty';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              AppTextField(
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-                prefixIcon: Icon(
-                  LucideIcons.lockKeyhole,
-                  color: AppColors.iconPrimary,
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Password cannot be empty';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  AppTextButton(
-                    text: 'Forgot Password?',
-                    onPressed: () {
-                      Navigator.pushNamed(context, AppRoutes.forgotPassword);
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              AppButton(
-                text: 'Log In',
-                onPressed: () {},
-                type: ButtonType.primary,
-              ),
-              SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'First time here?',
-                    style: TextStyle(
-                      color: AppColors.textPrimary,
-                      fontSize: 16,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  AppTextButton(
-                    text: 'Sign up',
-                    onPressed: () {
-                      Navigator.pushNamed(context, AppRoutes.register);
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      color: AppColors.borderSecondary,
-                      thickness: 1,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      'Or sign in with',
-                      style: TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      color: AppColors.borderSecondary,
-                      thickness: 1,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppButton(
-                      text: 'Google',
-                      onPressed: () {},
-                      type: ButtonType.google,
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: AppButton(
-                      text: 'Facebook',
-                      onPressed: () {},
-                      type: ButtonType.facebook,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            );
+          }
         ),
       ),
     );
