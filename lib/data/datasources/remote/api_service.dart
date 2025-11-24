@@ -37,9 +37,9 @@ class ApiService {
   Map<String, dynamic> _handleResponse(http.Response res) {
     final data = jsonDecode(res.body);
     if (res.statusCode >= 200 && res.statusCode < 300) {
-      return {"success": true, "data": data};
+      return {"success": data["success"], "data": data["data"]};
     } else {
-      return {"success": false, "message": data["message"] ?? "Unknown error"};
+      return {"success": data["success"], "message": data["message"] ?? "Unknown error"};
     }
   }
 }
