@@ -8,22 +8,26 @@ class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final ButtonType type;
+  final bool isLoading;
 
   const AppButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.type = ButtonType.primary,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     Color backgroundColor = AppColors.buttonPrimary;
+    Color disabledBackgroundColor = AppColors.buttonPrimary;
     Widget? leadingIcon;
 
     switch (type) {
       case ButtonType.google:
         backgroundColor = AppColors.buttonSecondary;
+        disabledBackgroundColor = AppColors.buttonSecondary;
         leadingIcon = SvgPicture.asset(
           'assets/icons/google.svg',
           width: 24,
@@ -31,7 +35,8 @@ class AppButton extends StatelessWidget {
         );
         break;
       case ButtonType.facebook:
-        backgroundColor = AppColors.buttonSecondary; // Facebook blue
+        backgroundColor = AppColors.buttonSecondary;
+        disabledBackgroundColor = AppColors.buttonSecondary;
         leadingIcon = SvgPicture.asset(
           'assets/icons/facebook.svg',
           width: 24,
@@ -44,9 +49,10 @@ class AppButton extends StatelessWidget {
     return SizedBox(
       height: 56,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: !isLoading ? onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
+          disabledBackgroundColor: disabledBackgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -57,13 +63,17 @@ class AppButton extends StatelessWidget {
               : MainAxisAlignment.center,
           children: [
             if (leadingIcon != null) ...[leadingIcon, SizedBox(width: 16)],
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 16,
-                color: type == ButtonType.primary ? Colors.black : Colors.white,
-              ),
-            ),
+            isLoading
+                ? CircularProgressIndicator(color: Colors.black, constraints: BoxConstraints(minWidth: 24, minHeight: 24))
+                : Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: type == ButtonType.primary
+                          ? Colors.black
+                          : Colors.white,
+                    ),
+                  ),
           ],
         ),
       ),
